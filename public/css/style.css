@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    background: #111;
+    color: #fff;
+    font-size: 50px;
+    font-family: 'Consolas';
+    text-decoration: none;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+a {
+    cursor: pointer;
+    font-size: 40px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.player {
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.player1 {
+    justify-content: right;
+}
+
+.scores {
+    min-width: fit-content;
+    font-weight: bold;
+}
+
+.player1-color {
+    color: #3333ff;
+}
+
+.player2-color {
+    color: #ff3333;
+}
+
+.ai-color {
+    color: #c3ff00;
+}
+
+canvas {
+    border: 5px solid #fff;
+}
