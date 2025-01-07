@@ -43,8 +43,8 @@ class Object {
 }
 
 const canvas = document.querySelector('canvas');
-canvas.width = 1400;
-canvas.height = 700;
+canvas.width = new URLSearchParams(window.location.search).get('width') === null ? 1400 : (new URLSearchParams(window.location.search).get('width') === '' ? 1400 : new URLSearchParams(window.location.search).get('width'));
+canvas.height = new URLSearchParams(window.location.search).get('height') === null ? 700 : (new URLSearchParams(window.location.search).get('height') === '' ? 700 : new URLSearchParams(window.location.search).get('height'));
 
 const inputs = {
     z: {
@@ -74,13 +74,13 @@ players = {
     player1: {
         username: 'Player1',
         score: 0,
-        AI: false,
+        AI: true,
         object: new Object(new Pos(0, canvas.height / 2 - PLAYER.HEIGHT / 2), PLAYER.WIDTH, PLAYER.HEIGHT)
     },
     player2: {
         username: 'Player2',
         score: 0,
-        AI: false,
+        AI: true,
         object: new Object(new Pos(canvas.width - PLAYER.WIDTH, canvas.height / 2 - PLAYER.HEIGHT / 2), PLAYER.WIDTH, PLAYER.HEIGHT)
     }
 },
@@ -187,9 +187,13 @@ function rename(e, player) {
     input.focus();
     input.addEventListener('blur', e => {
         players[player].username = e.target.value === '' ? 'none' : e.target.value;
+        e.target.remove();
     });
     input.addEventListener('keypress', e => {
-        if (e.key === 'Enter') players[player].username = e.target.value === '' ? 'none' : e.target.value;
+        if (e.key === 'Enter') {
+            players[player].username = e.target.value === '' ? 'none' : e.target.value;
+            e.target.remove();
+        }
     });
 }
 
