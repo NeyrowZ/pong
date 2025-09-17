@@ -43,8 +43,8 @@ class Object {
 }
 
 const canvas = document.querySelector('canvas');
-canvas.width = new URLSearchParams(window.location.search).get('width') === null ? 1400 : (new URLSearchParams(window.location.search).get('width') === '' ? 1400 : new URLSearchParams(window.location.search).get('width'));
-canvas.height = new URLSearchParams(window.location.search).get('height') === null ? 700 : (new URLSearchParams(window.location.search).get('height') === '' ? 700 : new URLSearchParams(window.location.search).get('height'));
+canvas.width = new URLSearchParams(window.location.search).get('width') === null ? 1400 : Math.max(200, new URLSearchParams(window.location.search).get('width') === '' ? 1400 : new URLSearchParams(window.location.search).get('width'));
+canvas.height = new URLSearchParams(window.location.search).get('height') === null ? 700 : Math.max(100, new URLSearchParams(window.location.search).get('height') === '' ? 700 : new URLSearchParams(window.location.search).get('height'));
 
 const inputs = {
     z: {
@@ -67,6 +67,7 @@ PLAYER = {
 },
 BALL = {
     SIZE: 20,
+    BASE_SPEED: 0,
     SPEED: 10,
     MAX_SPEED: 15
 },
@@ -107,8 +108,8 @@ function loop() {
         players.player2.object.pos.y = Math.max(0, Math.min(canvas.height - PLAYER.HEIGHT, ball.object.pos.y - PLAYER.HEIGHT / 2 + BALL.SIZE / 2));
     }
     
-    ball.object.pos.x = Math.max(0, Math.min(canvas.width - BALL.SIZE, ball.object.pos.x + ball.velocity.x * ball.speed));
-    ball.object.pos.y = Math.max(0, Math.min(canvas.height - BALL.SIZE, ball.object.pos.y + ball.velocity.y * ball.speed));
+    ball.object.pos.x = Math.max(0, Math.min(canvas.width - BALL.SIZE, ball.object.pos.x + ball.velocity.x * (ball.speed + BALL.BASE_SPEED / 10)));
+    ball.object.pos.y = Math.max(0, Math.min(canvas.height - BALL.SIZE, ball.object.pos.y + ball.velocity.y * (ball.speed + BALL.BASE_SPEED / 10)));
 
     if (ball.object.minX() <= 0 || ball.object.maxX() >= canvas.width) {
         if (ball.object.minX() <= 0) {
@@ -174,6 +175,11 @@ this.addEventListener('keyup', e => {
         case 'ArrowDown':
             inputs[e.key].pressed = false;
     }
+});
+
+document.getElementById('base_speed').addEventListener('input', (e) => {
+    BALL.BASE_SPEED = e.target.value;
+    console.log(BALL.BASE_SPEED);
 });
 
 document.getElementById('player1-username').addEventListener('click', e => rename(e, 'player1'));

@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    background: #111;
+    background: #0d0e0e;
     color: #fff;
     font-size: 50px;
     font-family: 'Consolas';
@@ -57,5 +57,32 @@ a {
 }
 
 canvas {
-    border: 5px solid #fff;
+    border: 5px solid #303436;
+}
+
+input[type='range'] {
+    position: absolute;
+    right: 2rem;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+#base_speed {
+    bottom: 2rem;
 }
